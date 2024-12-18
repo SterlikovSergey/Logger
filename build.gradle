@@ -6,7 +6,8 @@ plugins {
 }
 
 group = 'ru.clevertec'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.4-SNAPSHOT'
+description = 'Spring Boot Starter for Monitoring Methods with @MonitorLogger'
 
 java {
     toolchain {
@@ -25,20 +26,16 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-autoconfigure:3.4.0' // Укажите версию
-    implementation 'org.springframework.boot:spring-boot-starter-aop:3.4.0' // Укажите версию
-    compileOnly 'org.projectlombok:lombok:1.18.30' // Укажите версию
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:3.4.0'
+    implementation 'org.springframework.boot:spring-boot-starter-aop:3.4.0'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:3.4.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.0'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.0'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
 
-// Конфигурация публикации
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -48,7 +45,7 @@ publishing {
     repositories {
         maven {
             name = "mavenLocal"
-            url = uri(layout.buildDirectory.dir("maven-repo")) // Используем layout.buildDirectory
+            url = uri("$buildDir/maven-repo")
         }
     }
 }
